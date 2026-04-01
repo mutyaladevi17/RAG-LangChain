@@ -21,7 +21,7 @@ def process_query(history):
     markdown_output = ""
     for i, doc in enumerate(docs):
         # We access doc.page_content since answer.py returns Langchain Document objects
-        markdown_output += f"### Retrieval_{i + 1}\n{doc.page_content}\n\n"
+        markdown_output += f"# **Retrieval_{i + 1}**\n{doc.page_content}\n\n"
         
     # Return the updated history and the markdown output
     return history, markdown_output
@@ -32,14 +32,14 @@ with gr.Blocks(title="Insurelm chat") as demo:
     with gr.Row():
         # Left Column: Chatbot and Textbox
         with gr.Column():
-            chatbot = gr.Chatbot(label="Chat with Insurelm AI Agent", type="messages", height=500)
+            chatbot = gr.Chatbot(label="Chat with Insurelm AI Agent", type="messages", height=600)
             user_input = gr.Textbox(label="Enter your query:", placeholder="Type a message and press Enter...")
             submit_btn = gr.Button("Submit")
             
         # Right Column: Markdown viewer for retrieval chunks
         with gr.Column():
             gr.Markdown("## Langchain Retrieval Chunks")
-            retrieval_display = gr.Markdown(value="*Retrieved chunks will appear here after you ask a question.*")
+            retrieval_display = gr.Markdown(value="*Retrieved chunks will appear here after you ask a question.*", container=True, height=600)
 
     # Connect the submit action for both "Enter" on textbox and button click
     user_input.submit(
@@ -62,4 +62,4 @@ with gr.Blocks(title="Insurelm chat") as demo:
     )
 
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(inbrowser=True)

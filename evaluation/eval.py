@@ -1,5 +1,9 @@
 import sys
+from pathlib import Path
 import math
+
+# Add the parent directory to sys.path so we can import from the 'implementation' package
+sys.path.append(str(Path(__file__).parent.parent))
 from pydantic import BaseModel, Field
 from litellm import completion
 from dotenv import load_dotenv
@@ -11,8 +15,6 @@ from implementation.answer import answer_question, fetch_context
 load_dotenv(override=True)
 
 MODEL = "gpt-4.1-nano"
-db_name = "vector_db"
-
 
 class RetrievalEval(BaseModel):
     """Evaluation metrics for retrieval performance."""
